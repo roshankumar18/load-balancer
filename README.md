@@ -11,23 +11,6 @@ This project implements a simple load balancer in Go. It supports multiple backe
 - Health checks for backend servers.
 - Simple HTTP server to handle incoming requests.
 
-## Directory Structure
-
-go-load-balancer/
-├── cmd/ # Command-line applications
-│ ├── main.go # Main application entry point
-│ └── servers.go # Separate server functionality
-├── configs/ # Configuration files
-│ └── config.yaml # YAML configuration for the load balancer
-├── internal/ # Internal packages
-│ ├── algorithms/ # Load balancing algorithms
-│ ├── backend/ # Backend server management
-│ ├── health/ # Health check functionality
-│ └── pool/ # Connection pool management
-├── types/ # Type definitions and interfaces
-├── go.mod # Go module file
-└── go.sum # Go module dependencies
-
 ## Installation
 
 1. Clone the repository:
