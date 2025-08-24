@@ -1,0 +1,16 @@
+server:
+  port: 8084
+  read_timeout: 10s
+  write_timeout: 10s
+
+backends:
+  - url: http://localhost:9080
+  - url: http://localhost:9081
+  - url: http://localhost:9082
+
+load_balancer:
+  algorithm: "round-robin"
+
+health_check:
+  interval: 20s
+  timeout: 2s
