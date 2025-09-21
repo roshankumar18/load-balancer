@@ -7,9 +7,9 @@ import (
 
 func main() {
 	servers := []string{
-		"http://localhost:9080",
-		"http://localhost:9081",
-		"http://localhost:9082",
+		"http://server:9080",
+		"http://server:9081",
+		"http://server:9082",
 	}
 
 	for _, server := range servers {
@@ -25,7 +25,7 @@ func startServer(url string) {
 		fmt.Fprintf(w, "Hello from %s\n", url)
 	})
 
-	port := url[len("http://localhost:"):]
+	port := url[len("http://server:"):]
 	fmt.Printf("Starting server at %s\n", url)
 
 	if err := http.ListenAndServe(":"+port, mux); err != nil {
