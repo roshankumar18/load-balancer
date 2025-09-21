@@ -18,7 +18,7 @@ import (
 
 func main() {
 
-	config, err := config.Load("../configs/config.yaml")
+	config, err := config.Load("./configs/config.yaml")
 
 	if err != nil {
 		log.Fatalf("Error loading config: %v", err)
@@ -35,7 +35,7 @@ func main() {
 	health := health.NewHealth(pool, &config.Health)
 
 	server := &http.Server{
-		Addr:         ":8084",
+		Addr:         ":8080",
 		Handler:      loadbalancer.NewLoadBalancer(pool),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,

@@ -4,9 +4,9 @@ server:
   write_timeout: 10s
 
 backends:
-  - url: http://localhost:9080
-  - url: http://localhost:9081
-  - url: http://localhost:9082
+  - url: http://servers:9080
+  - url: http://servers:9081
+  - url: http://servers:9082
 
 load_balancer:
   algorithm: "round-robin"
