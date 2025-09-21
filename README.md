@@ -31,7 +31,7 @@ The load balancer configuration is defined in `configs/config.yaml`. You can spe
 
 ```yaml
 server:
-  port: 8084
+  port: 8080
   read_timeout: 10s
   write_timeout: 10s
 
