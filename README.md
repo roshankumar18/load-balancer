@@ -36,9 +36,9 @@ server:
   write_timeout: 10s
 
 backends:
-  - url: http://localhost:9080
-  - url: http://localhost:9001
-  - url: http://localhost:9002
+  - url: http://servers:9080
+  - url: http://servers:9001
+  - url: http://servers:9002
 
 load_balancer:
   algorithm: "round-robin"
@@ -55,5 +55,13 @@ go run ./cmd/main.go
 To start the backend servers separately, run:
 
 ```bash
-go run ./servers.go
+go run ./servers/servers.go
+```
+
+## Using Docker Compose
+
+Build and start all services:
+
+```bash
+docker-compose up
 ```

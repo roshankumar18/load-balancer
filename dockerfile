@@ -15,7 +15,7 @@
     FROM alpine:3.18 AS runner-servers
     WORKDIR /app
     COPY --from=builder /app/servers .
-    EXPOSE 8081 8082 8083
+    EXPOSE 9081 9082 9083
     CMD ["./servers"]
     
 
