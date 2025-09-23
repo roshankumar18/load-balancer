@@ -46,7 +46,11 @@ func (lb *LoadBalancer) proxyRequest(w http.ResponseWriter, r *http.Request, pee
 			req.URL.Host = peer.GetURL().Host
 			req.Host = peer.GetURL().Host
 		},
+		ErrorHandler: func(w http.ResponseWriter, r *http.Request, e error) {
+			log.Printf("[%s] %s\n", peer.GetURL().Host, e.Error())
+		},
 	}
+
 	peer.ReverseProxy.ServeHTTP(w, r)
 
 }

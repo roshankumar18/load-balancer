@@ -5,7 +5,8 @@ server:
 
 backends:
   - url: https://load-balancer-server-ws89.vercel.app
-  - url: https://load-balancer-server-bn5kpl8bh.vercel.app
+  - url: https://load-balancer-server-z2wy.vercel.app
+  - url: https://load-balancer-server-xr7g.vercel.app
 
 load_balancer:
   algorithm: "round-robin"
