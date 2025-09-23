@@ -4,8 +4,8 @@ server:
   write_timeout: 10s
 
 backends:
-  - url: https://load-balancer-server-ws89.vercel.app/
-  - url: https://load-balancer-server-bn5kpl8bh.vercel.app/
+  - url: https://load-balancer-server-ws89.vercel.app
+  - url: https://load-balancer-server-bn5kpl8bh.vercel.app
   - url: http://servers:9082
 
 load_balancer:

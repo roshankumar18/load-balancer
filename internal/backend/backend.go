@@ -1,9 +1,11 @@
 package backend
 
 import (
+	"fmt"
 	"net"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 	"sync"
 	"time"
 )
@@ -61,8 +63,15 @@ func (this *Backend) GetURL() *url.URL {
 
 func (this *Backend) IsBackendAlive() bool {
 
-	conn, err := net.DialTimeout("tcp", this.url.Host, 2*time.Second)
+	var host string
+	if strings.Contains(host, "localhost") {
+		host = this.url.Host
+	} else {
+		host = this.url.Host + ":443"
+	}
+	conn, err := net.DialTimeout("tcp", host, 2*time.Second)
 	if err != nil {
+		fmt.Print(err)
 		return false
 	}
 	defer conn.Close()
