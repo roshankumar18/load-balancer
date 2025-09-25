@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/roshankumar18/go-load-balancer/internal/algorithms"
 	"github.com/roshankumar18/go-load-balancer/internal/config"
 	"github.com/roshankumar18/go-load-balancer/internal/health"
@@ -33,10 +34,16 @@ func main() {
 	}
 
 	health := health.NewHealth(pool, &config.Health)
+	mux := http.NewServeMux()
+	mux.Handle("/metrics", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Serving Prometheus metrics")
+		promhttp.Handler().ServeHTTP(w, r)
+	}))
+	mux.Handle("/", loadbalancer.NewLoadBalancer(pool))
 
 	server := &http.Server{
 		Addr:         ":8080",
-		Handler:      loadbalancer.NewLoadBalancer(pool),
+		Handler:      mux,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}

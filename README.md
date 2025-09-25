@@ -63,5 +63,5 @@ go run ./servers/servers.go
 Build and start all services:
 
 ```bash
-docker-compose up
+docker compose up
 ```
