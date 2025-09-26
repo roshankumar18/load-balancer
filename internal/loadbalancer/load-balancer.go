@@ -4,8 +4,11 @@ import (
 	"log"
 	"net/http"
 	"net/http/httputil"
+	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/roshankumar18/go-load-balancer/internal/backend"
+	"github.com/roshankumar18/go-load-balancer/internal/metrics"
 	"github.com/roshankumar18/go-load-balancer/internal/pool"
 )
 
@@ -31,6 +34,19 @@ func (this *LoadBalancer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (lb *LoadBalancer) proxyRequest(w http.ResponseWriter, r *http.Request, peer *backend.Backend) {
+	backendHost := peer.GetURL().Host
+	start := time.Now()
+
+	metrics.RequestsTotal.With(prometheus.Labels{"backend": backendHost}).Inc()
+	metrics.ActiveConnections.With(prometheus.Labels{"backend": backendHost}).Inc()
+
+	defer func() {
+
+		metrics.ActiveConnections.With(prometheus.Labels{"backend": backendHost}).Dec()
+		duration := time.Since(start).Seconds()
+		metrics.RequestDuration.With(prometheus.Labels{"backend": backendHost}).Observe(duration)
+	}()
+
 	peer.AddConnection()
 	defer peer.RemoveConnection()
 

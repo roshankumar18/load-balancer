@@ -14,10 +14,12 @@ import (
 	"github.com/roshankumar18/go-load-balancer/internal/config"
 	"github.com/roshankumar18/go-load-balancer/internal/health"
 	"github.com/roshankumar18/go-load-balancer/internal/loadbalancer"
+	"github.com/roshankumar18/go-load-balancer/internal/metrics"
 	"github.com/roshankumar18/go-load-balancer/internal/pool"
 )
 
 func main() {
+	metrics.Init()
 
 	config, err := config.Load("./configs/config.yaml")
 
@@ -34,6 +36,7 @@ func main() {
 	}
 
 	health := health.NewHealth(pool, &config.Health)
+
 	mux := http.NewServeMux()
 	mux.Handle("/metrics", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Println("Serving Prometheus metrics")

@@ -1,13 +1,5 @@
 version: '3.8'
 services:
-  servers:
-    build:
-      context: .
-      target: runner-servers
-    ports:
-      - "9080:9080"
-      - "9081:9081"
-      - "9082:9082"
 
   loadbalancer:
     build:
@@ -15,8 +7,6 @@ services:
       target: runner-loadbalancer
     ports:
       - "8080:8080"
-    depends_on:
-      - servers
 
   prometheus:
     image: prom/prometheus:latest
