@@ -12,6 +12,11 @@
 
 
     # - Servers
+    FROM alpine:3.18 AS runner-servers
+    WORKDIR /app
+    COPY --from=builder /app/servers .
+    EXPOSE 9081 9082 9083
+    CMD ["./servers"]
     
 
     FROM alpine:3.18 AS  runner-loadbalancer
