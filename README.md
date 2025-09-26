@@ -49,13 +49,13 @@ load_balancer:
 To start the load balancer, run the following command:
 
 ```bash
-go run ./cmd/main.go
+go run cmd/main.go
 ```
 
 To start the backend servers separately, run:
 
 ```bash
-go run ./servers/servers.go
+go run servers/servers.go
 ```
 
 ## Using Docker Compose
