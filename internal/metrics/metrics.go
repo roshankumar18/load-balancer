@@ -25,8 +25,15 @@ var (
 		},
 		[]string{"backend"},
 	)
+	BackendAlive = prometheus.NewGaugeVec(
+		prometheus.GaugeOpts{
+			Name: "loadbalancer_backend_alive",
+			Help: "Backend server health status",
+		},
+		[]string{"backend"},
+	)
 )
 
 func Init() {
-	prometheus.MustRegister(RequestsTotal, ActiveConnections, RequestDuration)
+	prometheus.MustRegister(RequestsTotal, ActiveConnections, RequestDuration, BackendAlive)
 }

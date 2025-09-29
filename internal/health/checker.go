@@ -5,8 +5,10 @@ import (
 	"log"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/roshankumar18/go-load-balancer/internal/backend"
 	"github.com/roshankumar18/go-load-balancer/internal/config"
+	"github.com/roshankumar18/go-load-balancer/internal/metrics"
 	"github.com/roshankumar18/go-load-balancer/internal/pool"
 )
 
@@ -28,8 +30,14 @@ func (this *Health) check(backend *backend.Backend) bool {
 
 func (this *Health) checkAll() bool {
 	for _, backend := range this.serverPool.GetBackends() {
+		value := 0
 		alive := backend.IsBackendAlive()
 		backend.SetAlive(alive)
+
+		if alive {
+			value = 1
+		}
+		metrics.BackendAlive.With(prometheus.Labels{"backend": backend.GetURL().Host}).Set(float64(value))
 	}
 
 	log.Print("Total backends: ", this.serverPool.GetBackendsCount())
